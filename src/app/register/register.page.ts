@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {AlertController,LoadingController} from '@ionic/angular';
 import {AuthService} from '../services/auth.service';
 import {UserI} from '../models/models';
+import {FirestoreService} from '../services/firestore.service';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class RegisterPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private firestore: FirestoreService
   ) {}
 
   ngOnInit() {}
@@ -36,10 +38,16 @@ export class RegisterPage implements OnInit {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    const user = await this.authService.register(this.userI).catch(error=>{this.showAlert('Registro fallido', 'Por favor intenta de nuevo!')});
+    const res = await this.authService.register(this.userI).catch(error=>{this.showAlert('Registro fallido', 'Por favor intenta de nuevo!')});
     await loading.dismiss();
 
-    if (user) {
+    if (res) {
+      const pathCollect = 'Usuarios';
+      const id = res.user.uid;
+      this.userI.uid=id;
+      this.userI.password= null;
+      await this.firestore.createDoc(this.userI,pathCollect,id);
+      this.showAlert('Tu registro', 'Fue exitoso');
       this.router.navigateByUrl('/home', { replaceUrl: true });
     } else {
       this.showAlert('Registro fallido', 'Por favor intenta de nuevo!');

@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore} from '@angular/fire/compat/firestore'
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
 
-  constructor() { }
+  constructor(private angularFirestore: AngularFirestore) { }
+
+  createDoc(data: any, pathCollect: string, id: string){
+    const collection= this.angularFirestore.collection(pathCollect);
+    return collection.doc(id).set(data);
+  }
 }
