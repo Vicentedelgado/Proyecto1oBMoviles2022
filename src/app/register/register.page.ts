@@ -12,32 +12,41 @@ import {UserI} from '../models/models';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  
-  userI: UserI={
-    uid: null, 
+  userI: UserI = {
+    uid: null,
     name: null,
     lastname: null,
     email: null,
     password: null,
-    rol: 'turista'
-  }
+    rol: 'turista',
+  };
 
   constructor(
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
-  ngOnInit() {
-   
+  ngOnInit() {}
+
+  async register() {
+    console.log('REGISTRO -->>>', this.userI);
+
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    const user = await this.authService.register(this.userI).catch(error=>{this.showAlert('Registro fallido', 'Por favor intenta de nuevo!')});
+    await loading.dismiss();
+
+    if (user) {
+      this.router.navigateByUrl('/home', { replaceUrl: true });
+    } else {
+      this.showAlert('Registro fallido', 'Por favor intenta de nuevo!');
+    }
   }
 
-  register(){
-   console.log('REGISTRO -->>>',this.userI)
-  }
-
-  async showAlert(header, message){
+  async showAlert(header, message) {
     const alert = await this.alertController.create({
       header,
       message,
@@ -45,5 +54,4 @@ export class RegisterPage implements OnInit {
     });
     await alert.present();
   }
-
 }
