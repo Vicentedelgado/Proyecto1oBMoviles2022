@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder,FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AlertController,LoadingController} from '@ionic/angular';
-import {AuthService} from '../services/auth.service';
-import {UserI} from '../models/models';
-import {FirestoreService} from '../services/firestore.service';
+import {AuthService} from '../../services/auth.service';
+import {UserI} from '../../models/models';
+import {FirestoreService} from '../../services/firestore.service';
 
 
 @Component({
@@ -33,8 +32,6 @@ export class RegisterPage implements OnInit {
   ngOnInit() {}
 
   async register() {
-    console.log('REGISTRO -->>>', this.userI);
-
     const loading = await this.loadingController.create();
     await loading.present();
 

@@ -30,4 +30,9 @@ export class AuthService {
   logout() {
     return signOut(this.auth);
   }
+
+  stateUser(){
+    const userState = this.authFire.authState;
+    return userState;
+  }
 }
