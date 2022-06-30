@@ -9,13 +9,25 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  login: boolean = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-
     private alertController: AlertController
   ) {
+    this.authService.stateUser().subscribe(userlogin=>{
+      if(userlogin){
+        console.log('esta logeado')
+        this.login = true;
+        console.log(this.login);
+
+      } else{
+        console.log("no esta logeado")
+        this.login = false;
+        console.log(this.login);
+      }
+    })
   }
 
   async logout(){
