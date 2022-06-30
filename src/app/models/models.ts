@@ -4,5 +4,5 @@ export interface UserI{
     lastname: string;
     email: string;
     password: string;
-    rol: 'turista' | 'admin' | 'propietario'
+    rol: string
 }

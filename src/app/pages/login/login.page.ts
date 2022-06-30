@@ -45,7 +45,7 @@ export class LoginPage implements OnInit {
     console.log('CREDENCIALES -->>',this.credentials);
 
     if (user) {
-      this.router.navigateByUrl('/home',{replaceUrl:true});
+      this.router.navigateByUrl('/perfil',{replaceUrl:true});
     } else {
       this.showAlert('Acceso fallido', 'Por favor intenta de nuevo!')
     }

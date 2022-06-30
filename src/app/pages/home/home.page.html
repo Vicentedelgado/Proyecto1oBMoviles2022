@@ -2,26 +2,25 @@
   <ion-toolbar color="primary" >
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
+      <ion-button [routerLink]="['/login']" routerLinkActive="router-link-active">
+        <ion-icon name="log-in-outline"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/perfil']" routerLinkActive="router-link-active">
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-button>
       <ion-button (click)="logout()">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>
-      Home
+      Home Ubicación
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="preview">
-    <ion-avatar (click)="changeImage()">
-      <img *ngIf="profile?.imageUrl; else placeholder_avatar;" [src]="profile.imageUrl">
-      <ng-template #placeholder_avatar>
-        <div class="fallback">
-          <p>Selecciona Imagen</p>
-        </div>
-      </ng-template>
-    </ion-avatar>
-
-  </div>
+  <ion-avatar>
+    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+  </ion-avatar> 
+  <p>Mi app home</p>
 </ion-content>

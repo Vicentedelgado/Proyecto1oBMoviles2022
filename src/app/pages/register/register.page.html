@@ -29,6 +29,14 @@
     <ion-input type="password" placeholder="Cotraseña" [(ngModel)]="userI.password"></ion-input>
   </ion-item>
 
+  <ion-item fill="solid" class="ion-margin-bottom">
+    <ion-label>Perfil:</ion-label>
+    <ion-select interface="action-sheet" placeholder="Selecciona un perfil" [(ngModel)]="userI.rol">
+      <ion-select-option value="Turista">Turista</ion-select-option>
+      <ion-select-option value="Propietario">Propietario</ion-select-option>
+    </ion-select>
+  </ion-item>
+
   <ion-button expand="full" type="button"  (click)="register()">Crear Cuenta</ion-button>
   <ion-button expand="full"  type="button" [routerLink]="['/']" routerLinkActive="router-link-active">Tengo una cuenta</ion-button>
 

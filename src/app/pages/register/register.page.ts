@@ -12,13 +12,15 @@ import {FirestoreService} from '../../services/firestore.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+
+  selectvaluerol: string;
   userI: UserI = {
     uid: null,
     name: null,
     lastname: null,
     email: null,
     password: null,
-    rol: 'turista',
+    rol: null
   };
 
   constructor(
@@ -35,7 +37,7 @@ export class RegisterPage implements OnInit {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    const res = await this.authService.register(this.userI).catch(error=>{this.showAlert('Registro fallido', 'Por favor intenta de nuevo!')});
+    const res = await this.authService.register(this.userI).catch(error=>{this.showAlert('Registro fallido ya existe un usuario con este correo', 'Por favor intenta de nuevo!')});
     await loading.dismiss();
 
     if (res) {
