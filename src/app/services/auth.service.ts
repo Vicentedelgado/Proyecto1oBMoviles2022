@@ -3,6 +3,7 @@ import {Auth,signInWithEmailAndPassword, signOut} from '@angular/fire/auth';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {UserI} from '../models/models';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,4 +36,5 @@ export class AuthService {
     const userState = this.authFire.authState;
     return userState;
   }
+
 }

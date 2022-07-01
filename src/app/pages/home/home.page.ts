@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
+import {UserI} from '../../models/models';
+import {FirestoreService} from '../../services/firestore.service';
 
 @Component({
   selector: 'app-home',
@@ -10,22 +12,22 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomePage {
   login: boolean = false;
+  rol: string;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private firestore: FirestoreService
   ) {
     this.authService.stateUser().subscribe(userlogin=>{
       if(userlogin){
         console.log('esta logeado')
         this.login = true;
-        console.log(this.login);
-
+        this.getUserDatosRol(userlogin.uid);      
       } else{
         console.log("no esta logeado")
         this.login = false;
-        console.log(this.login);
       }
     })
   }
@@ -40,6 +42,14 @@ export class HomePage {
     this.router.navigateByUrl('/',{replaceUrl:true});
   }
 
-  
+  getUserDatosRol(uid:string){
+    const path = 'Usuarios';
+    const id =uid;
+    this.firestore.getDoc<UserI>(path,id).subscribe(res =>{
+      if(res){
+        this.rol= res.rol;
+      }
+    })
+  }
 
 }

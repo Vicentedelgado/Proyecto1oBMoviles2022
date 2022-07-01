@@ -42,7 +42,6 @@ export class LoginPage implements OnInit {
     const user = await this.authService.login(this.credentials.value);
     await loading.dismiss();
 
-    console.log('CREDENCIALES -->>',this.credentials);
 
     if (user) {
       this.router.navigateByUrl('/perfil',{replaceUrl:true});
